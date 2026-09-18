@@ -23,6 +23,7 @@ import { StatCard } from '../components/common/StatCard';
 import { awsServicesData } from '../data/awsServices';
 import { initialCostItems } from '../data/costs';
 import { regionsData } from '../data/regions';
+import { securityChecksData } from '../data/security';
 
 interface DashboardProps {
   region: string;
@@ -39,6 +40,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ region }) => {
   // Cálculos dinámicos basados en datos mock centralizados
   const totalServicesInUse = awsServicesData.filter(s => s.status === 'in-use').length;
   
+  // Recursos totales y seguridad calculados desde los datos mock
+  const totalResources = initialCostItems.reduce((acc, item) => acc + item.quantity, 0);
+  const totalChecks = securityChecksData.length;
+  const okChecks = securityChecksData.filter(c => c.status === 'correct').length;
+  const securityScore = totalChecks > 0 ? Math.round((okChecks / totalChecks) * 100) : 0;
+  const warningChecks = securityChecksData.filter(c => c.status !== 'correct').length;
+
   // Calcular costo mensual y anual a partir de initialCostItems
   const monthlyCost = initialCostItems.reduce((acc, item) => acc + (item.quantity * item.hours * item.hourlyRate), 0);
   const annualCost = monthlyCost * 12;
@@ -105,28 +113,28 @@ export const Dashboard: React.FC<DashboardProps> = ({ region }) => {
           value={`$${monthlyCost.toFixed(2)}`} 
           icon={DollarSign} 
           colorTheme="amber"
-          trend="+4.2% vs mes anterior"
+          trend="Estimado según recursos actuales"
         />
         <StatCard 
           title="Costo Anual Proyectado" 
           value={`$${annualCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} 
           icon={DollarSign} 
           colorTheme="blue"
-          trend="Plan anual reservado"
+          trend="Proyección a 12 meses"
         />
         <StatCard 
           title="Recursos Cloud Totales" 
-          value="24 Instancias" 
+          value={`${totalResources} Recursos`} 
           icon={Layers} 
           colorTheme="emerald"
-          trend="EC2, RDS, S3 enlazados"
+          trend="EC2, RDS, S3, CloudFront"
         />
         <StatCard 
           title="Estado de Seguridad" 
-          value="92% Óptimo" 
+          value={`${securityScore}% Óptimo`} 
           icon={ShieldCheck} 
           colorTheme="emerald"
-          trend="1 advertencia menor (IAM)"
+          trend={`${warningChecks} advertencia(s) (IAM)`}
           trendUp={false}
         />
       </div>
@@ -209,7 +217,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ region }) => {
               </div>
               <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
                 <span className="text-xs font-semibold text-slate-700">Regiones Despliegue</span>
-                <span className="text-xs font-bold text-blue-600">4 Regiones Activas</span>
+                <span className="text-xs font-bold text-blue-600">{regionsData.length} Regiones Activas</span>
               </div>
             </div>
           </div>
