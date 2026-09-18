@@ -55,7 +55,7 @@ export const PlanningFormModal: React.FC<PlanningFormModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto thin-scroll">
+      <div className="bg-white rounded-2xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl relative my-4 max-h-[95vh] overflow-y-auto thin-scroll">
         <button 
           onClick={onClose}
           className="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition-colors cursor-pointer"
@@ -63,7 +63,7 @@ export const PlanningFormModal: React.FC<PlanningFormModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+        <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
           <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600">
             <FileText className="w-6 h-6" />
           </div>
@@ -80,7 +80,7 @@ export const PlanningFormModal: React.FC<PlanningFormModalProps> = ({
           </div>
         )}
 
-        <form onSubmit={onSubmit} className="space-y-5">
+        <form onSubmit={onSubmit} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Nombre de la Solución *</label>
@@ -163,20 +163,24 @@ export const PlanningFormModal: React.FC<PlanningFormModalProps> = ({
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
               Servicios AWS Seleccionados ({selectedServices.length})
             </label>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {awsServices.map(service => {
                 const isSelected = selectedServices.includes(service.id);
                 return (
                   <button
                     type="button"
                     key={service.id}
-                    onClick={() => onServiceToggle(service.id)}
-                    className={`flex items-center gap-2 p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                                        onClick={() => onServiceToggle(service.id)}
+                    title={`${service.name}: ${service.description}`}
+                    className={`flex items-start gap-2.5 p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
                       isSelected ? 'bg-blue-50 border-blue-500 text-blue-900' : 'bg-white border-slate-200 text-slate-700'
                     }`}
                   >
-                    <input type="checkbox" checked={isSelected} onChange={() => {}} className="w-4 h-4 text-blue-600 pointer-events-none" />
-                    <span className="text-xs font-bold truncate">{service.name.split(' ')[0]}</span>
+                    <input type="checkbox" checked={isSelected} onChange={() => {}} className="w-4 h-4 text-blue-600 pointer-events-none shrink-0" />
+                    <div className="min-w-0">
+                                           <span className="block text-sm font-bold truncate">{service.name.replace(/^AWS\s/, '').split(' (')[0]}</span>
+                      <span className="block text-xs leading-snug text-slate-600 font-normal line-clamp-3">{service.purpose}</span>
+                    </div>
                   </button>
                 );
               })}
