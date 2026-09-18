@@ -140,7 +140,7 @@ export const PlanningFormModal: React.FC<PlanningFormModalProps> = ({
                 type="number" 
                 value={estimatedUsers}
                 onChange={(e) => setEstimatedUsers(Number(e.target.value))}
-                min={100}
+                min={0}
                 step={500}
                 className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 text-sm"
               />
