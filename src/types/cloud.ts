@@ -19,7 +19,7 @@ export interface AWSRegion {
   location: string;
   status: 'Operational' | 'Warning' | 'Maintenance';
     deployedServices: number;
-  azs: number;
+    azs: string[];
 }
 
 
