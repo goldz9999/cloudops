@@ -1,6 +1,6 @@
 import React from 'react';
 import { Plus, Edit3 } from 'lucide-react';
-import type { AWSService } from '../../types/cloud';
+import type { AWSService, AWSRegion } from '../../types/cloud';
 
 interface CostFormProps {
   editingId: string | null;
@@ -14,7 +14,10 @@ interface CostFormProps {
   setHourlyRate: (val: number) => void;
   onSubmit: (e: React.FormEvent) => void;
   onCancelEdit: () => void;
-  awsServices: AWSService[];
+    awsServices: AWSService[];
+  region: string;
+  setRegion: (val: string) => void;
+  regions: AWSRegion[];
 }
 
 export const CostForm: React.FC<CostFormProps> = ({
@@ -29,7 +32,10 @@ export const CostForm: React.FC<CostFormProps> = ({
   setHourlyRate,
   onSubmit,
   onCancelEdit,
-  awsServices
+    awsServices,
+  region,
+  setRegion,
+  regions
 }) => {
   const selectedService = awsServices.find(s => s.id === selectedServiceId);
 
@@ -72,6 +78,19 @@ export const CostForm: React.FC<CostFormProps> = ({
               <p className="text-xs text-slate-500 mt-1 italic">Uso típico: {selectedService.purpose}</p>
             </div>
           )}
+        </div>
+
+                <div>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Región AWS</label>
+          <select 
+            value={region}
+            onChange={(e) => setRegion(e.target.value)}
+            className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-blue-500 bg-white"
+          >
+            {regions.map(r => (
+              <option key={r.id} value={r.code}>{r.name} ({r.code})</option>
+            ))}
+          </select>
         </div>
 
         <div className="grid grid-cols-2 gap-3">

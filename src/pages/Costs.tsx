@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { CloudCostItem } from '../types/cloud';
 import { initialCostItems } from '../data/costs';
 import { awsServicesData } from '../data/awsServices';
+import { regionsData } from '../data/regions';
 import { CostSummaryCards } from '../components/costs/CostSummaryCards';
 import { CostChart } from '../components/costs/CostChart';
 import { CostForm } from '../components/costs/CostForm';
@@ -16,6 +17,7 @@ export const Costs: React.FC = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const [hours, setHours] = useState<number>(730);
   const [hourlyRate, setHourlyRate] = useState<number>(0.05);
+    const [region, setRegion] = useState('us-east-1');
 
   const [selectedItemDetail, setSelectedItemDetail] = useState<CloudCostItem | null>(null);
 
@@ -36,7 +38,8 @@ export const Costs: React.FC = () => {
             serviceName: `${serviceName} (${quantity} un.)`,
             quantity: Number(quantity),
             hours: Number(hours),
-            hourlyRate: Number(hourlyRate)
+            hourlyRate: Number(hourlyRate),
+            region
           };
         }
         return item;
@@ -49,7 +52,8 @@ export const Costs: React.FC = () => {
         serviceName: `${serviceName} (${quantity} un.)`,
         quantity: Number(quantity),
         hours: Number(hours),
-        hourlyRate: Number(hourlyRate)
+        hourlyRate: Number(hourlyRate),
+        region
       };
       setCostItems([...costItems, newItem]);
     }
@@ -65,6 +69,7 @@ export const Costs: React.FC = () => {
     setQuantity(item.quantity);
     setHours(item.hours);
     setHourlyRate(item.hourlyRate);
+    setRegion(item.region || 'us-east-1');
   };
 
   const handleCancelEdit = () => {
@@ -107,7 +112,10 @@ export const Costs: React.FC = () => {
           setHourlyRate={setHourlyRate}
           onSubmit={handleSaveCostItem}
           onCancelEdit={handleCancelEdit}
-          awsServices={awsServicesData}
+        awsServices={awsServicesData}
+          region={region}
+          setRegion={setRegion}
+          regions={regionsData}
         />
       </div>
 

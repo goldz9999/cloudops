@@ -27,7 +27,8 @@ export interface CloudCostItem {
   serviceName: string;
   quantity: number;
   hours: number;
-  hourlyRate: number;
+    hourlyRate: number;
+  region?: string;
 }
 
 export interface CloudPlan {

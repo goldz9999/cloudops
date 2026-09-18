@@ -12,6 +12,12 @@ import { Services } from './pages/Services';
 
 export function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [region, setRegion] = useState(() => localStorage.getItem('cloudops_region') || 'us-east-1');
+
+  const handleRegionChange = (code: string) => {
+    localStorage.setItem('cloudops_region', code);
+    setRegion(code);
+  };
 
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
@@ -21,12 +27,12 @@ export function App() {
 
         {/* Contenido principal */}
         <div className="flex-1 flex flex-col lg:pl-64">
-          <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} selectedRegion="us-east-1" />
+          <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} selectedRegion={region} onRegionChange={handleRegionChange} />
           
           <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
             <Routes>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard region={region} />} />
               <Route path="/planning" element={<Planning />} />
               <Route path="/costs" element={<Costs />} />
               <Route path="/infrastructure" element={<Infrastructure />} /> 

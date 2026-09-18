@@ -1,12 +1,14 @@
 import React from 'react';
 import { Menu, Bell, Shield, User } from 'lucide-react';
+import { regionsData } from '../../data/regions';
 
 interface HeaderProps {
   onToggleSidebar: () => void;
   selectedRegion?: string;
+  onRegionChange?: (code: string) => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onToggleSidebar, selectedRegion = 'us-east-1' }) => {
+export const Header: React.FC<HeaderProps> = ({ onToggleSidebar, selectedRegion = 'us-east-1', onRegionChange }) => {
   return (
     <header className="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between sticky top-0 z-30 shadow-xs">
       <div className="flex items-center gap-4">
@@ -21,7 +23,16 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar, selectedRegion 
         <div className="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span className="text-xs font-semibold text-slate-700 uppercase tracking-wider">Región:</span>
-          <span className="text-xs font-medium text-blue-600">{selectedRegion}</span>
+                    <select
+            value={selectedRegion}
+            onChange={(e) => onRegionChange?.(e.target.value)}
+            className="bg-transparent text-xs font-medium text-blue-600 focus:outline-none cursor-pointer max-w-[10rem] sm:max-w-none"
+            aria-label="Cambiar región"
+          >
+            {regionsData.map(r => (
+              <option key={r.id} value={r.code}>{r.name} ({r.code})</option>
+            ))}
+          </select>
         </div>
       </div>
 

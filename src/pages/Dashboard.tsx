@@ -22,8 +22,20 @@ import {
 import { StatCard } from '../components/common/StatCard';
 import { awsServicesData } from '../data/awsServices';
 import { initialCostItems } from '../data/costs';
+import { regionsData } from '../data/regions';
 
-export const Dashboard: React.FC = () => {
+interface DashboardProps {
+  region: string;
+}
+
+const REGION_STATUS_LABEL: Record<string, string> = {
+  Operational: 'Operacional',
+  Warning: 'Advertencia',
+  Maintenance: 'Mantenimiento',
+};
+
+export const Dashboard: React.FC<DashboardProps> = ({ region }) => {
+  const currentRegion = regionsData.find(r => r.code === region);
   // Cálculos dinámicos basados en datos mock centralizados
   const totalServicesInUse = awsServicesData.filter(s => s.status === 'in-use').length;
   
@@ -83,10 +95,10 @@ export const Dashboard: React.FC = () => {
         />
         <StatCard 
           title="Región Principal" 
-          value="us-east-1" 
+                    value={region} 
           icon={Globe} 
           colorTheme="emerald"
-          trend="N. Virginia (Operacional)"
+          trend={currentRegion ? `${currentRegion.name} (${REGION_STATUS_LABEL[currentRegion.status]})` : 'Región personalizada'}
         />
         <StatCard 
           title="Costo Mensual Estimado" 
