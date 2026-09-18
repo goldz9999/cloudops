@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { awsServicesData } from '../data/awsServices';
 import { ServiceSearchFilter } from '../components/services/ServiceSearchFilter';
 import { ServiceGrid } from '../components/services/ServiceGrid';
+import { ServiceDetailModal } from '../components/common/ServiceDetailModal';
+import type { AWSService } from '../types/cloud';
 
 export const Services: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Todas');
+  const [selectedService, setSelectedService] = useState<AWSService | null>(null);
 
   // Obtener categorías únicas de los datos
   const categories = ['Todas', ...Array.from(new Set(awsServicesData.map(s => s.category)))];
@@ -33,7 +36,9 @@ export const Services: React.FC = () => {
         categories={categories}
       />
 
-      <ServiceGrid services={filteredServices} />
+      <ServiceGrid services={filteredServices} onServiceClick={setSelectedService} />
+
+      <ServiceDetailModal service={selectedService} onClose={() => setSelectedService(null)} />
     </div>
   );
 };

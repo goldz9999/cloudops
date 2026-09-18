@@ -8,6 +8,9 @@ export const awsServicesData: AWSService[] = [
     description: 'Servicio de computación escalable para ejecutar aplicaciones en la nube.',
     purpose: 'Ejecutar servidores virtuales y cargas de trabajo empresariales.',
     status: 'in-use',
+    pricing: 'Desde ~$0.0116/hora (instancia t3.micro) hasta varios $/hora en instancias grandes. Se paga por horas de uso, más almacenamiento (EBS) y transferencia de datos.',
+    hasFreeTier: true,
+    freeTierDetail: '150 horas/mes de t2.micro o t3.micro durante 12 meses (cuentas creadas antes de jul. 2025). Cuentas nuevas reciben $100–$200 en créditos iniciales aplicables a EC2.',
   },
   {
     id: 's3',
@@ -16,6 +19,9 @@ export const awsServicesData: AWSService[] = [
     description: 'Almacenamiento de objetos altamente escalable, seguro y duradero.',
     purpose: 'Guardar backups, assets estáticos y archivos de usuario.',
     status: 'in-use',
+    pricing: '~$0.023 por GB/mes (clase Standard), más cargos por solicitudes (GET/PUT) y transferencia de salida a internet.',
+    hasFreeTier: true,
+    freeTierDetail: '5 GB de almacenamiento Standard, 20,000 solicitudes GET y 2,000 PUT por mes, durante los primeros 12 meses.',
   },
   {
     id: 'rds',
@@ -24,6 +30,9 @@ export const awsServicesData: AWSService[] = [
     description: 'Base de datos relacional administrada fácil de configurar y escalar.',
     purpose: 'Gestionar bases de datos transaccionales (PostgreSQL/MySQL).',
     status: 'in-use',
+    pricing: 'Desde ~$0.017/hora (db.t3.micro) más almacenamiento (~$0.115/GB/mes) y respaldo. El precio sube según el motor y tamaño de instancia.',
+    hasFreeTier: true,
+    freeTierDetail: '150 horas/mes de una instancia micro de un solo AZ, más 20 GB de almacenamiento, durante 12 meses.',
   },
   {
     id: 'vpc',
@@ -32,6 +41,9 @@ export const awsServicesData: AWSService[] = [
     description: 'Recursos de red aislados lógicamente para tu infraestructura AWS.',
     purpose: 'Controlar subredes, tablas de enrutamiento y pasarelas de internet.',
     status: 'in-use',
+    pricing: 'La VPC en sí no tiene costo. Se cobra por componentes adicionales: NAT Gateway (~$0.045/hora + $0.045/GB procesado), IPs elásticas inactivas y VPN Gateway.',
+    hasFreeTier: true,
+    freeTierDetail: 'La VPC base, subredes y tablas de rutas son gratis de forma permanente. El NAT Gateway y otros add-ons no tienen capa gratuita.',
   },
   {
     id: 'iam',
@@ -40,6 +52,9 @@ export const awsServicesData: AWSService[] = [
     description: 'Gestión segura de accesos a servicios y recursos de AWS.',
     purpose: 'Administrar usuarios, roles, políticas y MFA bajo principio de menor privilegio.',
     status: 'in-use',
+    pricing: 'Sin costo. No se cobra por usuarios, grupos, roles ni políticas creadas dentro de tu cuenta.',
+    hasFreeTier: true,
+    freeTierDetail: '100% gratuito de forma permanente, sin límites de uso relevantes para la mayoría de los casos.',
   },
   {
     id: 'route53',
@@ -48,6 +63,9 @@ export const awsServicesData: AWSService[] = [
     description: 'Servicio DNS web altamente disponible y escalable.',
     purpose: 'Enrutar tráfico de usuarios hacia la infraestructura global.',
     status: 'in-use',
+    pricing: '~$0.50/mes por zona alojada, más ~$0.40 por millón de consultas DNS estándar (varía según el tipo de consulta).',
+    hasFreeTier: false,
+    freeTierDetail: 'No tiene capa gratuita permanente, pero el costo base para un dominio pequeño suele ser de menos de $1/mes.',
   },
   {
     id: 'cloudfront',
@@ -56,6 +74,9 @@ export const awsServicesData: AWSService[] = [
     description: 'Red de entrega de contenidos (CDN) rápida y segura.',
     purpose: 'Acelerar la entrega de contenido estático y dinámico a nivel global.',
     status: 'in-use',
+    pricing: 'Desde ~$0.085/GB de transferencia de salida (varía por región), más costo por cada 10,000 solicitudes HTTP/HTTPS.',
+    hasFreeTier: true,
+    freeTierDetail: '250 GB de transferencia de datos y 1 millon de solicitudes HTTP/HTTPS por mes, de forma permanente (Always Free).',
   },
   {
     id: 'lambda',
@@ -64,5 +85,8 @@ export const awsServicesData: AWSService[] = [
     description: 'Computación sin servidor (serverless) orientada a eventos.',
     purpose: 'Ejecutar código backend sin aprovisionar servidores.',
     status: 'available',
+    pricing: 'Después del tier gratuito: ~$0.20 por millón de solicitudes + $0.0000166667 por GB-segundo de cómputo usado.',
+    hasFreeTier: true,
+    freeTierDetail: '250.000 solicitudes y 100.000 GB-segundos de cómputo por mes, de forma permanente (Always Free)..',
   }
 ];

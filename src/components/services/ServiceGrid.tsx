@@ -4,9 +4,10 @@ import { ServiceCard } from '../common/ServiceCard';
 
 interface ServiceGridProps {
   services: AWSService[];
+  onServiceClick?: (service: AWSService) => void;
 }
 
-export const ServiceGrid: React.FC<ServiceGridProps> = ({ services }) => {
+export const ServiceGrid: React.FC<ServiceGridProps> = ({ services, onServiceClick }) => {
   if (services.length === 0) {
     return (
       <div className="bg-white p-12 rounded-2xl border border-slate-200 text-center space-y-2">
@@ -19,7 +20,7 @@ export const ServiceGrid: React.FC<ServiceGridProps> = ({ services }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {services.map((service) => (
-        <ServiceCard key={service.id} service={service} />
+        <ServiceCard key={service.id} service={service} onClick={() => onServiceClick?.(service)} />
       ))}
     </div>
   );

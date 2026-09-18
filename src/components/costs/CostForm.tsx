@@ -31,6 +31,8 @@ export const CostForm: React.FC<CostFormProps> = ({
   onCancelEdit,
   awsServices
 }) => {
+  const selectedService = awsServices.find(s => s.id === selectedServiceId);
+
   return (
     <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs">
       <div className="flex items-center justify-between mb-1">
@@ -63,6 +65,13 @@ export const CostForm: React.FC<CostFormProps> = ({
               <option key={s.id} value={s.id}>{s.name}</option>
             ))}
           </select>
+          {selectedService && (
+            <div className="mt-2 p-3 rounded-xl bg-blue-50 border border-blue-100">
+              <p className="text-xs font-bold text-blue-700 mb-1">{selectedService.category}</p>
+              <p className="text-xs text-slate-700">{selectedService.description}</p>
+              <p className="text-xs text-slate-500 mt-1 italic">Uso típico: {selectedService.purpose}</p>
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-3">

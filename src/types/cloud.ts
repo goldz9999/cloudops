@@ -7,6 +7,9 @@ export interface AWSService {
   description: string;
   purpose: string;
   status: AWSServiceStatus;
+  pricing: string;
+  hasFreeTier: boolean;
+  freeTierDetail: string;
 }
 
 export interface AWSRegion {
