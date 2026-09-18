@@ -21,9 +21,7 @@ import {
 
 import { StatCard } from '../components/common/StatCard';
 import { awsServicesData } from '../data/awsServices';
-import { regionsData } from '../data/regions';
 import { initialCostItems } from '../data/costs';
-import { securityChecksData } from '../data/security';
 
 export const Dashboard: React.FC = () => {
   // Cálculos dinámicos basados en datos mock centralizados

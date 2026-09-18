@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Sidebar } from './components/common/Sidebar';
 import { Header } from './components/common/Header';
@@ -9,14 +9,6 @@ import { Infrastructure } from './pages/Infrastructure'; // <-- Asegúrate de te
 import { Security } from './pages/Security';
 import { Network } from './pages/Network';
 import { Services } from './pages/Services';
-
-// Placeholder temporal para los módulos restantes
-const PlaceholderPage: React.FC<{ title: string }> = ({ title }) => (
-  <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs">
-    <h2 className="text-2xl font-bold text-slate-800 mb-2">{title}</h2>
-    <p className="text-slate-600">Este módulo está listo para ser desarrollado en la siguiente fase.</p>
-  </div>
-);
 
 export function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);

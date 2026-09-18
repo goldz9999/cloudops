@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, CheckCircle2, Cpu, HardDrive } from 'lucide-react';
+import { Layers, CheckCircle2 } from 'lucide-react';
 
 export const VPCCardDetails: React.FC = () => {
   const vpcComponents = [
