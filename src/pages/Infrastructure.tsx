@@ -5,6 +5,8 @@ import { RegionGrid } from '../components/infrastructure/RegionGrid';
 
 export const Infrastructure: React.FC = () => {
   const totalRegions = regionsData.length;
+  const totalAzs = regionsData.reduce((sum, r) => sum + r.azs.length, 0);
+  const totalServices = regionsData.reduce((sum, r) => sum + r.deployedServices, 0);
   const operationalRegions = regionsData.filter(r => r.status === 'Operational').length;
 
   return (
@@ -37,7 +39,7 @@ export const Infrastructure: React.FC = () => {
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Zonas de Disponibilidad (AZs)</p>
-            <h3 className="text-2xl font-bold text-slate-800 tracking-tight">12 AZs Conectadas</h3>
+            <h3 className="text-2xl font-bold text-slate-800 tracking-tight">{totalAzs} AZs Disponibles</h3>
             <p className="text-xs text-slate-500 mt-1">Alta tolerancia a fallos multi-AZ</p>
           </div>
           <div className="p-4 rounded-xl bg-emerald-50 text-emerald-600">
@@ -47,9 +49,9 @@ export const Infrastructure: React.FC = () => {
 
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Edge Locations (CDN)</p>
-            <h3 className="text-2xl font-bold text-slate-800 tracking-tight">410+ Puntos Globales</h3>
-            <p className="text-xs text-slate-500 mt-1">Aceleración mediante CloudFront</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Servicios Desplegados</p>
+            <h3 className="text-2xl font-bold text-slate-800 tracking-tight">{totalServices} Servicios Activos</h3>
+            <p className="text-xs text-slate-500 mt-1">Distribuidos en {totalRegions} regiones</p>
           </div>
           <div className="p-4 rounded-xl bg-amber-50 text-amber-600">
             <Server className="w-6 h-6" />

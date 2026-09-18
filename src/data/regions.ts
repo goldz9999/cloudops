@@ -8,6 +8,7 @@ export const regionsData: AWSRegion[] = [
     location: 'Virginia, USA',
     status: 'Operational',
     deployedServices: 7,
+    azs: ['us-east-1a', 'us-east-1b', 'us-east-1c', 'us-east-1d', 'us-east-1e', 'us-east-1f'],
   },
   {
     id: 'us-west-2',
@@ -16,6 +17,7 @@ export const regionsData: AWSRegion[] = [
     location: 'Oregon, USA',
     status: 'Operational',
     deployedServices: 4,
+    azs: ['us-west-2a', 'us-west-2b', 'us-west-2c', 'us-west-2d'],
   },
   {
     id: 'eu-west-1',
@@ -24,6 +26,7 @@ export const regionsData: AWSRegion[] = [
     location: 'Dublin, Ireland',
     status: 'Operational',
     deployedServices: 5,
+    azs: ['eu-west-1a', 'eu-west-1b', 'eu-west-1c'],
   },
   {
     id: 'ap-northeast-1',
@@ -32,5 +35,6 @@ export const regionsData: AWSRegion[] = [
     location: 'Tokyo, Japan',
     status: 'Warning',
     deployedServices: 3,
-  }
+    azs: ['ap-northeast-1a', 'ap-northeast-1b', 'ap-northeast-1c', 'ap-northeast-1d'],
+  },
 ];

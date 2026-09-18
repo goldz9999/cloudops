@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { AWSRegion } from '../../types/cloud';
 import { StatusBadge } from './StatusBadge';
-import { Globe, MapPin, Server, X } from 'lucide-react';
+import { Globe, MapPin, Server, ShieldCheck, X } from 'lucide-react';
 import { awsServicesData } from '../../data/awsServices';
 
 interface RegionCardProps {
@@ -40,6 +40,12 @@ export const RegionCard: React.FC<RegionCardProps> = ({ region }) => {
                 <MapPin className="w-4 h-4 text-slate-400" /> Ubicación:
               </span>
               <span className="font-medium text-slate-800 text-xs">{region.location}</span>
+            </div>
+            <div className="flex items-center justify-between text-slate-600">
+              <span className="flex items-center gap-1.5 text-xs">
+                <ShieldCheck className="w-4 h-4 text-slate-400" /> Zonas (AZs):
+              </span>
+              <span className="font-semibold text-emerald-600 text-xs">{region.azs.length} zonas</span>
             </div>
             <div className="flex items-center justify-between text-slate-600">
               <span className="flex items-center gap-1.5 text-xs">
@@ -86,6 +92,19 @@ export const RegionCard: React.FC<RegionCardProps> = ({ region }) => {
                 <div>
                   <span className="text-slate-400 block font-medium">Estado:</span>
                   <span className="font-bold text-emerald-600">{region.status}</span>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+                  Zonas de Disponibilidad ({region.azs.length}):
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {region.azs.map((az) => (
+                    <span key={az} className="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-mono font-semibold">
+                      {az}
+                    </span>
+                  ))}
                 </div>
               </div>
 

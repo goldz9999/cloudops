@@ -18,8 +18,10 @@ export interface AWSRegion {
   code: string;
   location: string;
   status: 'Operational' | 'Warning' | 'Maintenance';
-  deployedServices: number;
+    deployedServices: number;
+  azs: number;
 }
+
 
 export interface CloudCostItem {
   id: string;
