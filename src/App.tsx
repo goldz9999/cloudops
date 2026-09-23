@@ -28,15 +28,15 @@ export function App() {
         {/* Contenido principal */}
         <div className="flex-1 flex flex-col lg:pl-64">
           <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} selectedRegion={region} onRegionChange={handleRegionChange} />
-          
-          <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+
+          <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full">
             <Routes>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard region={region} />} />
               <Route path="/planning" element={<Planning />} />
               <Route path="/costs" element={<Costs />} />
-              <Route path="/infrastructure" element={<Infrastructure />} /> 
-              <Route path="/security" element={<Security />} /> 
+              <Route path="/infrastructure" element={<Infrastructure />} />
+              <Route path="/security" element={<Security />} />
               <Route path="/network" element={<Network />} />
               <Route path="/services" element={<Services />} />
               <Route path="*" element={<Navigate to="/dashboard" replace />} />

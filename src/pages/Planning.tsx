@@ -6,7 +6,7 @@ import { regionsData } from '../data/regions';
 
 import { PlanningHeader } from '../components/planning/PlanningHeader';
 import { PlanningList } from '../components/planning/PlanningList';
-import { PlanningFormModal } from '../components/planning/PlanningFormModal';
+import { PlanningFormPanel } from '../components/planning/PlanningFormPanel';
 import { PlanningDetailModal } from '../components/planning/PlanningDetailModal';
 
 export const Planning: React.FC = () => {
@@ -34,7 +34,6 @@ export const Planning: React.FC = () => {
     }
   ]);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlanDetail, setSelectedPlanDetail] = useState<CloudPlan | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -76,7 +75,6 @@ export const Planning: React.FC = () => {
 
     setPlans([newPlan, ...plans]);
     setSuccessMessage('✓ Propuesta Cloud registrada correctamente.');
-    setIsModalOpen(false);
 
     setSolutionName('');
     setDescription('');
@@ -92,8 +90,8 @@ export const Planning: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8 pb-12">
-      <PlanningHeader onOpenModal={() => setIsModalOpen(true)} />
+    <div className="space-y-6 pb-12">
+      <PlanningHeader />
 
       {successMessage && (
         <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl flex items-center gap-3 shadow-xs">
@@ -102,38 +100,42 @@ export const Planning: React.FC = () => {
         </div>
       )}
 
-      <PlanningList 
-        plans={plans}
-        onSelectPlan={setSelectedPlanDetail}
-        onDeletePlan={handleDeletePlan}
-      />
+      <div className="flex flex-col lg:flex-row gap-6 items-start">
+        <div className="w-full lg:w-[560px] shrink-0">
+          <PlanningFormPanel
+            solutionName={solutionName}
+            setSolutionName={setSolutionName}
+            appType={appType}
+            setAppType={setAppType}
+            description={description}
+            setDescription={setDescription}
+            region={region}
+            setRegion={setRegion}
+            estimatedUsers={estimatedUsers}
+            setEstimatedUsers={setEstimatedUsers}
+            availability={availability}
+            setAvailability={setAvailability}
+            selectedServices={selectedServices}
+            onServiceToggle={handleServiceToggle}
+            migrationGoal={migrationGoal}
+            setMigrationGoal={setMigrationGoal}
+            onSubmit={handleSubmit}
+            errorMessage={errorMessage}
+            awsServices={awsServicesData}
+            regions={regionsData}
+          />
+        </div>
 
-      <PlanningFormModal 
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        solutionName={solutionName}
-        setSolutionName={setSolutionName}
-        appType={appType}
-        setAppType={setAppType}
-        description={description}
-        setDescription={setDescription}
-        region={region}
-        setRegion={setRegion}
-        estimatedUsers={estimatedUsers}
-        setEstimatedUsers={setEstimatedUsers}
-        availability={availability}
-        setAvailability={setAvailability}
-        selectedServices={selectedServices}
-        onServiceToggle={handleServiceToggle}
-        migrationGoal={migrationGoal}
-        setMigrationGoal={setMigrationGoal}
-        onSubmit={handleSubmit}
-        errorMessage={errorMessage}
-        awsServices={awsServicesData}
-        regions={regionsData}
-      />
+        <div className="flex-1 w-full min-w-0">
+          <PlanningList
+            plans={plans}
+            onSelectPlan={setSelectedPlanDetail}
+            onDeletePlan={handleDeletePlan}
+          />
+        </div>
+      </div>
 
-      <PlanningDetailModal 
+      <PlanningDetailModal
         plan={selectedPlanDetail}
         onClose={() => setSelectedPlanDetail(null)}
       />
